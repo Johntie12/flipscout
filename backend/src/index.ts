@@ -1,19 +1,21 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const auth = require('./auth');
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import auth from './auth';
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 const JWT_SECRET = process.env.JWT_SECRET || 'devsecret';
 
 // In-memory user store for scaffold purposes only
-const users = new Map(); // email -> { id, email, passwordHash }
+const users = new Map<string, { id: string; email: string; passwordHash: string }>(); // email -> { id, email, passwordHash }
 
-app.post('/register', async (req, res) => {
+app.post('/register', async (req: express.Request, res: express.Response) => {
   const { email, password } = req.body;
   if (!email || !password) return res.status(400).json({ error: 'Missing email or password' });
   if (users.has(email)) return res.status(409).json({ error: 'User already exists' });
@@ -24,7 +26,7 @@ app.post('/register', async (req, res) => {
   res.status(201).json({ id: user.id, email: user.email });
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login', async (req: express.Request, res: express.Response) => {
   const { email, password } = req.body;
   const user = users.get(email);
   if (!user) return res.status(401).json({ error: 'Invalid credentials' });
@@ -37,8 +39,8 @@ app.post('/login', async (req, res) => {
 });
 
 // Protected example route
-app.get('/me', auth, (req, res) => {
-  res.json({ id: req.user.sub, email: req.user.email });
+app.get('/me', auth, (req: express.Request, res: express.Response) => {
+  res.json({ id: (req as any).user.sub, email: (req as any).user.email });
 });
 
 app.listen(PORT, () => {
