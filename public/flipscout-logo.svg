@@ -1,0 +1,28 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Car icon -->
+  <g transform="translate(10, 15)">
+    <rect x="2" y="10" width="28" height="8" rx="2" fill="url(#logo-gradient)"/>
+    <rect x="0" y="12" width="4" height="4" rx="2" fill="url(#logo-gradient)"/>
+    <rect x="28" y="12" width="4" height="4" rx="2" fill="url(#logo-gradient)"/>
+    <circle cx="8" cy="22" r="3" fill="#374151"/>
+    <circle cx="24" cy="22" r="3" fill="#374151"/>
+    <rect x="10" y="8" width="6" height="6" rx="1" fill="#f3f4f6"/>
+    <rect x="18" y="8" width="6" height="6" rx="1" fill="#f3f4f6"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="50" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">Flip</text>
+  <text x="50" y="42" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="url(#logo-gradient)">Scout</text>
+  
+  <!-- Scout symbol -->
+  <circle cx="170" cy="20" r="8" stroke="url(#logo-gradient)" stroke-width="2" fill="none"/>
+  <circle cx="170" cy="20" r="3" fill="url(#logo-gradient)"/>
+  <path d="M170 12 L175 7 M170 12 L165 7" stroke="url(#logo-gradient)" stroke-width="2" fill="none"/>
+</svg>
