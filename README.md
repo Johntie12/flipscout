@@ -1,34 +1,27 @@
-# FlipScout — Backend scaffold
+# FlipScout Website (scaffold)
 
-This scaffold provides a minimal Express + TypeScript backend for FlipScout using Postgres.
+This is a minimal Next.js + TypeScript + Tailwind scaffold for a FlipScout website.
 
-Features
-- Create and list listings
-- Import comps via CSV
-- Compute valuations (heuristic)
-- Persist listings, comps and valuations to Postgres
-- Simple migration SQL included
+Getting started:
 
-Quickstart
-1. Copy `.env.example` to `.env` and set DATABASE_URL and PORT.
-2. Ensure Postgres is running and DATABASE_URL points to it.
-3. Run migrations:
-   psql $DATABASE_URL -f src/models.sql
-4. Install dependencies and start:
-   cd backend
+1. Install dependencies
+   ```bash
    npm install
+   # or
+   yarn
+   ```
+
+2. Run locally
+   ```bash
    npm run dev
+   ```
 
-Endpoints
-- POST /api/listings
-  - body: { title, marketplace, make, model, year, km, price, state, link }
-- GET /api/listings
-  - returns listings with latest valuation
-- POST /api/comps/import
-  - body: { csvText } CSV with header (make,model,year,km,price,state)
-- POST /api/estimate
-  - body: { listingId } compute valuation for a listing and persist
+3. Build
+   ```bash
+   npm run build
+   npm start
+   ```
 
-Notes
-- This is an MVP scaffold. Add auth (JWT/session) and per-user isolation before production.
-- Use a queue (BullMQ) or cron for periodic re-evaluation and alerts.
+Notes:
+- Designed to be connected to the existing backend API (set base URL via environment variables).
+- I can add auth (NextAuth/Clerk), CI workflows, and simple pages (pricing, docs, sign-in) next.
