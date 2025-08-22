@@ -32,7 +32,7 @@ const Analytics: React.FC = () => {
     }
 
     // Unknown format: no-op
-  }, []);
+  }, [analytics]);
 
   return null;
 };
