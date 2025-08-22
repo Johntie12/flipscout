@@ -2,6 +2,9 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# Create public directory in case it doesn't exist
+RUN mkdir -p public
+
 # Copy package files and install deps
 COPY package*.json ./
 RUN npm ci

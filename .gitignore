@@ -4,3 +4,6 @@ node_modules
 .env.*.local
 .vscode
 dist
+backend/dist
+.env
+backend/.env

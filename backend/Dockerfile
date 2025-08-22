@@ -3,11 +3,11 @@ FROM node:20-alpine AS base
 WORKDIR /app
 
 # Install deps
-COPY backend/package*.json ./
+COPY package*.json ./
 RUN npm ci
 
 # Copy source
-COPY backend/ ./
+COPY . .
 
 # Build
 RUN npm run build
