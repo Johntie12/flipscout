@@ -10,6 +10,11 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'devsecret';
 
+// Warn in production if JWT_SECRET is not set
+if (process.env.NODE_ENV === 'production' && JWT_SECRET === 'devsecret') {
+  console.warn('WARNING: JWT_SECRET is not set. Set process.env.JWT_SECRET in production for security.');
+}
+
 // In-memory user store for scaffold purposes only
 const users = new Map(); // email -> { id, email, passwordHash }
 
@@ -41,6 +46,10 @@ app.get('/me', auth, (req, res) => {
   res.json({ id: req.user.sub, email: req.user.email });
 });
 
-app.listen(PORT, () => {
-  console.log(`FlipScout backend scaffold running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.info(`FlipScout backend scaffold running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
