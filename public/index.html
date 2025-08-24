@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Website Time</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; background:#f5f7fb; }
+    .card { background:white; padding:24px 32px; border-radius:10px; box-shadow:0 6px 20px rgba(20,30,60,0.08); text-align:center; min-width:280px; }
+    .time { font-size:2rem; font-weight:600; margin-bottom:6px; }
+    .tz { color:#555; margin-bottom:12px; }
+    .server { color:#111; font-size:0.95rem; }
+    .label { font-size:0.85rem; color:#666; margin-top:8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="time" id="localTime">--:--:--</div>
+    <div class="tz" id="localTZ">Local timezone</div>
+    <div class="server" id="serverTime">Server time: (not fetched)</div>
+    <div class="label">Local clock updates every second (uses visitor device time).</div>
+  </div>
+
+  <script>
+    // Local browser clock (updates each second)
+    function updateLocalClock() {
+      const now = new Date();
+      document.getElementById('localTime').textContent = now.toLocaleTimeString();
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown timezone';
+      document.getElementById('localTZ').textContent = tz;
+    }
+    updateLocalClock();
+    setInterval(updateLocalClock, 1000);
+
+    // Optional: fetch server time from /api/time if available.
+    async function fetchServerTime() {
+      try {
+        const res = await fetch('/api/time', {cache: 'no-store'});
+        if (!res.ok) throw new Error('server endpoint not available');
+        const json = await res.json();
+        const d = new Date(json.serverTime);
+        document.getElementById('serverTime').textContent =
+          'Server time: ' + d.toLocaleString() + ' (UTC: ' + d.toISOString() + ')';
+      } catch (err) {
+        // endpoint missing or inaccessible — keep client-only clock
+      }
+    }
+    fetchServerTime();
+  </script>
+</body>
+</html>
