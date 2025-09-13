@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Add any custom config here
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/quokka',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
